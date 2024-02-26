@@ -93,6 +93,7 @@ fun Fall(navController: NavController){
                 acceleration = acceleration * 0.9f + delta
                 if (acceleration > 12 ){
                     // Delay to make the icon reappear after a few seconds
+                    fallDetection.alert = false
                     navController.popBackStack()
                 }
 
@@ -126,6 +127,7 @@ fun Fall(navController: NavController){
 
 
 
+
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = Color.Black,
@@ -147,7 +149,8 @@ fun Fall(navController: NavController){
             Text(
                 text = AlertMessage,
                 style = MaterialTheme.typography.bodyLarge,
-                modifier = Modifier.background(Color.Black)
+                modifier = Modifier
+                    .background(Color.Black)
                     .align(alignment = Alignment.CenterHorizontally),
                 fontSize = 25.sp,
                 textAlign = TextAlign.Center,
@@ -157,7 +160,9 @@ fun Fall(navController: NavController){
             Text(
                 text = AlertMessage2,
                 style = MaterialTheme.typography.bodyLarge,
-                modifier = Modifier.background(Color.Black).align(alignment = Alignment.CenterHorizontally),
+                modifier = Modifier
+                    .background(Color.Black)
+                    .align(alignment = Alignment.CenterHorizontally),
                 textAlign = TextAlign.Center,
                 fontSize = 15.sp,
                 color = Color.White,
@@ -166,7 +171,9 @@ fun Fall(navController: NavController){
             Text(
                 text = AskPrompt,
                 style = MaterialTheme.typography.bodySmall,
-                modifier = Modifier.background(Color.Black).align(alignment = Alignment.CenterHorizontally),
+                modifier = Modifier
+                    .background(Color.Black)
+                    .align(alignment = Alignment.CenterHorizontally),
                 textAlign = TextAlign.Center,
                 color = Color.White,
             )

@@ -72,7 +72,6 @@ class FallDetectClass{
             SensorManager.SENSOR_DELAY_NORMAL
         )
     }
-
 }
 
 

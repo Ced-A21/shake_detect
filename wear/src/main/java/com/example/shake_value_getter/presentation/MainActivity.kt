@@ -63,10 +63,9 @@ fun WearApp(){
     val fallDetection by remember { mutableStateOf(FallDetectClass()) }
 
     fallDetection.StartDetection()
-    if(fallDetection.alert == true){
+    if(fallDetection.alert == true && fallDetection.movementDetected == false){
         navController.navigate("Fall")
     }
-
 
 
     SwipeDismissableNavHost(

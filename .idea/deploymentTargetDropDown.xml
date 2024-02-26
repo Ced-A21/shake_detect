@@ -19,20 +19,7 @@
         </State>
       </entry>
       <entry key="wear">
-        <State>
-          <runningDeviceTargetSelectedWithDropDown>
-            <Target>
-              <type value="RUNNING_DEVICE_TARGET" />
-              <deviceKey>
-                <Key>
-                  <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="C:\Users\Ryzen 3 3200\.android\avd\Wear_OS_Large_Round_API_33.avd" />
-                </Key>
-              </deviceKey>
-            </Target>
-          </runningDeviceTargetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-02-26T13:25:04.566838200Z" />
-        </State>
+        <State />
       </entry>
     </value>
   </component>
