@@ -50,7 +50,6 @@ fun Fall(navController: NavController){
 
     var alert by remember {mutableStateOf(false)}
     val effectKey = remember { mutableStateOf(0) }
-    val fallDetection = remember { FallDetectClass() }
 
     LaunchedEffect(sensorManager, context) {
 
@@ -70,61 +69,58 @@ fun Fall(navController: NavController){
 
     }
 
-    DisposableEffect(Unit) {
-
-        val accelerometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
-
-
-        val listener: SensorEventListener = object : SensorEventListener {
-            override fun onSensorChanged(event: SensorEvent) {
-                var acceleration = 10f
-                var currentAcceleration = SensorManager.GRAVITY_EARTH
-                var lastAcceleration = SensorManager.GRAVITY_EARTH
-                // Fetching x,y,z values
-                val x = event.values[0]
-                val y = event.values[1]
-                val z = event.values[2]
-                lastAcceleration = currentAcceleration
-
-                // Getting current accelerations
-                // with the help of fetched x,y,z values
-                currentAcceleration = sqrt((x * x + y * y + z * z).toDouble()).toFloat()
-                val delta: Float = currentAcceleration - lastAcceleration
-                acceleration = acceleration * 0.9f + delta
-                if (acceleration > 12 ){
-                    // Delay to make the icon reappear after a few seconds
-                    navController.popBackStack()
-                }
-
-
-                // Display a Toast message if
-                // acceleration value is over 12
-            }
-            override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {}
-
-
-        }
-        sensorManager.registerListener(listener, sensorManager.getDefaultSensor(
-            Sensor .TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL
-        )
-
-        sensorManager.unregisterListener(listener)
-
-        sensorManager.registerListener(
-            listener,
-            accelerometerSensor,
-            SensorManager.SENSOR_DELAY_NORMAL
-
-        )
-
-        onDispose {
-            sensorManager.unregisterListener(listener)
-        }
-
-    }
-
-
-
+//    DisposableEffect(Unit) {
+//
+//        val accelerometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+//
+//
+//        val listener: SensorEventListener = object : SensorEventListener {
+//            override fun onSensorChanged(event: SensorEvent) {
+//                var acceleration = 10f
+//                var currentAcceleration = SensorManager.GRAVITY_EARTH
+//                var lastAcceleration = SensorManager.GRAVITY_EARTH
+//                // Fetching x,y,z values
+//                val x = event.values[0]
+//                val y = event.values[1]
+//                val z = event.values[2]
+//                lastAcceleration = currentAcceleration
+//
+//                // Getting current accelerations
+//                // with the help of fetched x,y,z values
+//                currentAcceleration = sqrt((x * x + y * y + z * z).toDouble()).toFloat()
+//                val delta: Float = currentAcceleration - lastAcceleration
+//                acceleration = acceleration * 0.9f + delta
+//                if (acceleration > 12 ){
+//                    // Delay to make the icon reappear after a few seconds
+//                    navController.popBackStack()
+//                }
+//
+//
+//                // Display a Toast message if
+//                // acceleration value is over 12
+//            }
+//            override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {}
+//
+//
+//        }
+//        sensorManager.registerListener(listener, sensorManager.getDefaultSensor(
+//            Sensor .TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL
+//        )
+//
+//        sensorManager.unregisterListener(listener)
+//
+//        sensorManager.registerListener(
+//            listener,
+//            accelerometerSensor,
+//            SensorManager.SENSOR_DELAY_NORMAL
+//
+//        )
+//
+//        onDispose {
+//            sensorManager.unregisterListener(listener)
+//        }
+//
+//    }
 
     Surface(
         modifier = Modifier.fillMaxSize(),

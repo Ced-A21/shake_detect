@@ -41,6 +41,8 @@ import androidx.navigation.NavController
 
 
 import com.example.shake_value_getter.presentation.ShakeFunc.*
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
 
 
 private var lastFallTime: Long = 0
@@ -53,6 +55,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             WearApp()
         }
+        FallDetection.initialize(this)
     }
 }
 
@@ -60,11 +63,29 @@ class MainActivity : ComponentActivity() {
 @Preview
 fun WearApp(){
     val navController = rememberSwipeDismissableNavController()
-    val fallDetection by remember { mutableStateOf(FallDetectClass()) }
 
-    fallDetection.StartDetection()
-    if(fallDetection.alert == true){
-        navController.navigate("Fall")
+    var movementDetected by remember { mutableStateOf(false) }
+
+    val scope = rememberCoroutineScope()
+
+    DisposableEffect(Unit) {
+        val flow = FallDetection.startDetection()
+
+        // Collect the flow in a coroutine
+        scope.launch {
+            flow.collect { movementDetected ->
+                if (!movementDetected) {
+                    navController.navigate("Fall")
+                } else if (movementDetected && navController.currentDestination?.route == "Fall") {
+                    navController.popBackStack()
+                }
+            }
+        }
+
+        // This will cancel the coroutine when the composable is disposed
+        onDispose {
+            scope.cancel()
+        }
     }
 
 
